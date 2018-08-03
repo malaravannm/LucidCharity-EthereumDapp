@@ -1,0 +1,90 @@
+<section class="hero is-medium is-info is-bold">
+  <div class="hero-body">
+    <div class="container">
+      <h1 class="title is-1">
+        Lucid Charity 
+      </h1>
+      <h2 class="title">
+        Get your membership classification
+      </h2>
+    </div>
+  </div>
+</section>
+<br>
+<div class="container">
+  <h1 class="title">Enter the donation amount and get your membership classification.</h1>
+  <h1 class="title is-4 is-info help">{{status}}</h1>
+
+  <form #charityForm="ngForm">
+    <div class="field">
+      <label class="label">Donation Amount</label>
+      <p class="control">
+        <input
+          [(ngModel)]="donationAmount"
+          class="input"
+          type="text"
+          placeholder="Amount that you are donating."
+          name="donationAmount"
+          required
+          #donationAmountModel="ngModel">
+      </p>
+      <div *ngIf="donationAmountModel.errors && (donationAmountModel.dirty || donationAmountModel.touched)"
+           class="help is-danger">
+          <p [hidden]="!donationAmountModel.errors.required">
+            This field is required
+          </p>
+      </div>
+      <div *ngIf="!donationAmountModel.errors && (donationAmountModel.dirty || donationAmountModel.touched)"
+           class="help is-danger">
+          <p [hidden]="canBeNumber(donationAmount)">
+            Must be a number
+          </p>
+      </div>
+    </div>
+    <div class="field">
+      <label class="label">Charity Organization Address</label>
+      <p class="control">
+        <input
+          [(ngModel)]="recipientAddress"
+          name="recipientAddress"
+          class="input"
+          type="text"
+          placeholder="Charity orgnaization address to transfer the donation amount."
+          name="recipientAddress"
+          required
+          #recipientAddressModel="ngModel"
+        >
+      </p>
+      <div *ngIf="recipientAddressModel.errors && (recipientAddressModel.dirty || recipientAddressModel.touched)"
+           class="help is-danger">
+          <p [hidden]="!recipientAddressModel.errors.required">
+            This field is required
+          </p>
+      </div>
+      <div *ngIf="!recipientAddressModel.errors && (recipientAddressModel.dirty || recipientAddressModel.touched)"
+           class="help is-danger">
+          <p [hidden]="canBeNumber(recipientAddress)">
+            Must be a number
+          </p>
+      </div>
+    </div>
+
+    <div class="field is-grouped">
+      <p class="control">
+        <button
+          [disabled]="!charityForm.valid"
+          (click)="get_donation_details()"
+          class="button is-primary">
+          Get Your Class
+        </button>
+      </p>
+    </div>
+  </form>
+
+  <h2 class="title">
+    Donor Membership class is <span class="is-medium has-underline">{{membership_class}}</span>
+  </h2>
+
+  <strong>Hint:</strong> open the browser developer console to view any errors and warnings.
+
+</div>
